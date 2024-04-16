@@ -10,4 +10,16 @@ const io = new Server(server, {
   },
 });
 
+io.on("connection", (socket) => {
+  console.log("We are connected");
+
+  socket.on("chat", (chat) => {
+    io.emit("chat", chat);
+  });
+
+  socket.on("disconnected", () => {
+    console.log("disconnected");
+  });
+});
+
 server.listen(5000, () => console.log("Listening to port 5000"));
